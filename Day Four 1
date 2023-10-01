@@ -1,0 +1,32 @@
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let input = [];
+let currentLine = 0;
+let testCases = 0;
+
+rl.on('line', (line) => {
+    input.push(line.trim());
+});
+
+rl.on('close', () => {
+    testCases = Number(input[currentLine++]);
+    while(testCases--) {
+        let n = Number(input[currentLine++]);
+        let s = [];
+        for(let i = 0; i < n; i++) {
+            s[i] = input[currentLine++];
+            s[i] = s[i].split('').sort().join(''); // Sort each string
+        }
+        let flag = true;
+        for(let i = 0; i < n && flag; i++) {
+            for(let j = 0; j + 1 < n && flag; j++) {
+                if(s[j][i] > s[j + 1][i]) flag = false;
+            }
+        }
+        console.log(flag ? 'YES' : 'NO');
+    }
+});
